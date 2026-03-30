@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+</head>
+<body>
+    <h1>Lista de Alunos</h1>
+
+    <p>
+        <a th:href="@{/alunos/novo}">Novo aluno</a>
+        |
+        <a th:href="@{/fatecads}">Página inicial</a>
+    </p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>CPF</th>
+                <th>RA</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="aluno : ${listaAlunos}">
+                <td th:text="${aluno.idAluno}">1</td>
+                <td th:text="${aluno.nomeAluno}">Nome</td>
+                <td th:text="${aluno.emailAluno}">email@exemplo.com</td>
+                <td th:text="${aluno.telefoneAluno}">(11) 99999-9999</td>
+                <td th:text="${aluno.enderecoAluno}">Rua A</td>
+                <td th:text="${aluno.cpfAluno}">00000000000</td>
+                <td th:text="${aluno.raAluno}">123456</td>
+                <td>
+                    <a th:href="@{/alunos/editar/{id}(id=${aluno.idAluno})}">Editar</a>
+                    <form th:action="@{/alunos/excluir/{id}(id=${aluno.idAluno})}"
+                          method="post"
+                          onsubmit="return confirm('Deseja excluir este aluno?');"
+                          style="display:inline;">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

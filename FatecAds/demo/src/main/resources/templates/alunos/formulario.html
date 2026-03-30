@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Aluno</title>
+</head>
+<body>
+    <table width="100%" height="100%">
+        <tr>
+            <td align="center" valign="middle">
+                <h1>Cadastro de Aluno</h1>
+
+                <form th:action="@{/alunos/salvar}" th:object="${aluno}" method="post">
+                    <input type="hidden" th:field="*{idAluno}">
+
+                    <div>
+                        <label for="nomeAluno">Nome</label>
+                        <input id="nomeAluno" type="text" th:field="*{nomeAluno}" required>
+                    </div>
+
+                    <div>
+                        <label for="emailAluno">E-mail</label>
+                        <input id="emailAluno" type="email" th:field="*{emailAluno}">
+                    </div>
+
+                    <div>
+                        <label for="telefoneAluno">Telefone</label>
+                        <input id="telefoneAluno" type="text" th:field="*{telefoneAluno}" required>
+                    </div>
+
+                    <div>
+                        <label for="enderecoAluno">Endereço</label>
+                        <input id="enderecoAluno" type="text" th:field="*{enderecoAluno}" required>
+                    </div>
+
+                    <div>
+                        <label for="cpfAluno">CPF</label>
+                        <input id="cpfAluno" type="text" th:field="*{cpfAluno}" required>
+                    </div>
+
+                    <div>
+                        <label for="raAluno">RA</label>
+                        <input id="raAluno" type="text" th:field="*{raAluno}" required>
+                    </div>
+
+                    <button type="submit">Salvar</button>
+                </form>
+
+                <p>
+                    <a th:href="@{/alunos}">Voltar para a lista</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
