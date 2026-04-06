@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Curso</title>
+</head>
+<body>
+    <table width="100%" height="100%">
+        <tr>
+            <td align="center" valign="middle">
+                <h1>Cadastro de Curso</h1>
+
+                <form th:action="@{/cursos/salvar}" th:object="${curso}" method="post">
+                    <input type="hidden" th:field="*{idCurso}">
+
+                    <div>
+                        <label for="nomeCurso">Nome</label>
+                        <input id="nomeCurso" type="text" th:field="*{nomeCurso}" required>
+                    </div>
+
+                    <div>
+                        <label for="periodo">Período</label>
+                        <input id="periodo" type="number" th:field="*{periodo}" required>
+                    </div>
+
+                    <div>
+                        <label for="cargaHoraria">Carga Horária</label>
+                        <input id="cargaHoraria" type="number" th:field="*{cargaHoraria}" required>
+                    </div>
+
+                    <button type="submit">Salvar</button>
+                </form>
+
+                <p>
+                    <a th:href="@{/cursos}">Voltar para a lista</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

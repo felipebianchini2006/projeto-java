@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Cursos</title>
+</head>
+<body>
+    <h1>Lista de Cursos</h1>
+
+    <p>
+        <a th:href="@{/cursos/novo}">Novo curso</a>
+        |
+        <a th:href="@{/fatecads}">Página inicial</a>
+    </p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Período</th>
+                <th>Carga Horária</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="curso : ${listaCursos}">
+                <td th:text="${curso.idCurso}">1</td>
+                <td th:text="${curso.nomeCurso}">Nome</td>
+                <td th:text="${curso.periodo}">6</td>
+                <td th:text="${curso.cargaHoraria}">2400</td>
+                <td>
+                    <a th:href="@{/cursos/editar/{id}(id=${curso.idCurso})}">Editar</a>
+                    <form th:action="@{/cursos/excluir/{id}(id=${curso.idCurso})}"
+                          method="post"
+                          onsubmit="return confirm('Deseja excluir este curso?');"
+                          style="display:inline;">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
