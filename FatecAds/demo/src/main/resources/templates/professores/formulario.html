@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Professor</title>
+</head>
+<body>
+    <table width="100%" height="100%">
+        <tr>
+            <td align="center" valign="middle">
+                <h1>Cadastro de Professor</h1>
+
+                <form th:action="@{/professores/salvar}" th:object="${professor}" method="post">
+                    <input type="hidden" th:field="*{idProfessor}">
+
+                    <div>
+                        <label for="nomeProfessor">Nome</label>
+                        <input id="nomeProfessor" type="text" th:field="*{nomeProfessor}" required>
+                    </div>
+
+                    <div>
+                        <label for="telefoneProfessor">Telefone</label>
+                        <input id="telefoneProfessor" type="text" th:field="*{telefoneProfessor}" required>
+                    </div>
+
+                    <div>
+                        <label for="graduacaoProfessor">Graduação</label>
+                        <input id="graduacaoProfessor" type="text" th:field="*{graduacaoProfessor}" required>
+                    </div>
+
+                    <div>
+                        <label for="rmProfessor">RM</label>
+                        <input id="rmProfessor" type="text" th:field="*{rmProfessor}" required>
+                    </div>
+
+                    <button type="submit">Salvar</button>
+                </form>
+
+                <p>
+                    <a th:href="@{/professores}">Voltar para a lista</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

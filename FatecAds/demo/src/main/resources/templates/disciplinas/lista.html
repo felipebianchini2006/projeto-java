@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Disciplinas</title>
+</head>
+<body>
+    <h1>Lista de Disciplinas</h1>
+
+    <p>
+        <a th:href="@{/disciplinas/novo}">Nova disciplina</a>
+        |
+        <a th:href="@{/fatecads}">Página inicial</a>
+    </p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Sigla</th>
+                <th>Carga Horária</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="disciplina : ${listaDisciplinas}">
+                <td th:text="${disciplina.idDisciplina}">1</td>
+                <td th:text="${disciplina.nomeDisciplina}">Nome</td>
+                <td th:text="${disciplina.siglaDisciplina}">SIG</td>
+                <td th:text="${disciplina.cargaHorariaDisciplina}">80</td>
+                <td>
+                    <a th:href="@{/disciplinas/editar/{id}(id=${disciplina.idDisciplina})}">Editar</a>
+                    <form th:action="@{/disciplinas/excluir/{id}(id=${disciplina.idDisciplina})}"
+                          method="post"
+                          onsubmit="return confirm('Deseja excluir esta disciplina?');"
+                          style="display:inline;">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

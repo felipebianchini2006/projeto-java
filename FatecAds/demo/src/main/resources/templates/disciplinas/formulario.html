@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Disciplina</title>
+</head>
+<body>
+    <table width="100%" height="100%">
+        <tr>
+            <td align="center" valign="middle">
+                <h1>Cadastro de Disciplina</h1>
+
+                <form th:action="@{/disciplinas/salvar}" th:object="${disciplina}" method="post">
+                    <input type="hidden" th:field="*{idDisciplina}">
+
+                    <div>
+                        <label for="nomeDisciplina">Nome</label>
+                        <input id="nomeDisciplina" type="text" th:field="*{nomeDisciplina}" required>
+                    </div>
+
+                    <div>
+                        <label for="siglaDisciplina">Sigla</label>
+                        <input id="siglaDisciplina" type="text" th:field="*{siglaDisciplina}" required>
+                    </div>
+
+                    <div>
+                        <label for="cargaHorariaDisciplina">Carga Horária</label>
+                        <input id="cargaHorariaDisciplina" type="number" th:field="*{cargaHorariaDisciplina}" required>
+                    </div>
+
+                    <button type="submit">Salvar</button>
+                </form>
+
+                <p>
+                    <a th:href="@{/disciplinas}">Voltar para a lista</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
