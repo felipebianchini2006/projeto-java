@@ -4,45 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Professores</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <h1>Lista de Professores</h1>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/fatecads}">Inicio</a>
+            </nav>
+        </div>
+    </div>
 
-    <p>
-        <a th:href="@{/professores/novo}">Novo professor</a>
-        |
-        <a th:href="@{/fatecads}">Página inicial</a>
-    </p>
+    <div class="container">
+        <h2 class="page-title">Professores</h2>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Graduação</th>
-                <th>RM</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="professor : ${listaProfessores}">
-                <td th:text="${professor.idProfessor}">1</td>
-                <td th:text="${professor.nomeProfessor}">Nome</td>
-                <td th:text="${professor.telefoneProfessor}">(11) 99999-9999</td>
-                <td th:text="${professor.graduacaoProfessor}">Mestrado</td>
-                <td th:text="${professor.rmProfessor}">123456</td>
-                <td>
-                    <a th:href="@{/professores/editar/{id}(id=${professor.idProfessor})}">Editar</a>
-                    <form th:action="@{/professores/excluir/{id}(id=${professor.idProfessor})}"
-                          method="post"
-                          onsubmit="return confirm('Deseja excluir este professor?');"
-                          style="display:inline;">
-                        <button type="submit">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="actions-bar">
+            <a th:href="@{/professores/novo}" class="btn btn-primary">Novo professor</a>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Graduacao</th>
+                        <th>RM</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="professor : ${listaProfessores}">
+                        <td th:text="${professor.idProfessor}">1</td>
+                        <td th:text="${professor.nomeProfessor}">Nome</td>
+                        <td th:text="${professor.telefoneProfessor}">(11) 99999-9999</td>
+                        <td th:text="${professor.graduacaoProfessor}">Mestrado</td>
+                        <td th:text="${professor.rmProfessor}">123456</td>
+                        <td>
+                            <div class="td-actions">
+                                <a th:href="@{/professores/editar/{id}(id=${professor.idProfessor})}" class="btn btn-edit">Editar</a>
+                                <form th:action="@{/professores/excluir/{id}(id=${professor.idProfessor})}"
+                                      method="post"
+                                      onsubmit="return confirm('Deseja excluir este professor?');">
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

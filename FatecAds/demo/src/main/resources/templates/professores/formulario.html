@@ -4,44 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Professor</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <table width="100%" height="100%">
-        <tr>
-            <td align="center" valign="middle">
-                <h1>Cadastro de Professor</h1>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/fatecads}">Inicio</a>
+                <a th:href="@{/professores}">Professores</a>
+            </nav>
+        </div>
+    </div>
 
-                <form th:action="@{/professores/salvar}" th:object="${professor}" method="post">
-                    <input type="hidden" th:field="*{idProfessor}">
+    <div class="container">
+        <h2 class="page-title">Cadastro de Professor</h2>
 
-                    <div>
-                        <label for="nomeProfessor">Nome</label>
-                        <input id="nomeProfessor" type="text" th:field="*{nomeProfessor}" required>
-                    </div>
+        <div class="form-card">
+            <form th:action="@{/professores/salvar}" th:object="${professor}" method="post">
+                <input type="hidden" th:field="*{idProfessor}">
 
-                    <div>
-                        <label for="telefoneProfessor">Telefone</label>
-                        <input id="telefoneProfessor" type="text" th:field="*{telefoneProfessor}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="nomeProfessor">Nome</label>
+                    <input id="nomeProfessor" type="text" th:field="*{nomeProfessor}" required>
+                </div>
 
-                    <div>
-                        <label for="graduacaoProfessor">Graduação</label>
-                        <input id="graduacaoProfessor" type="text" th:field="*{graduacaoProfessor}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="telefoneProfessor">Telefone</label>
+                    <input id="telefoneProfessor" type="text" th:field="*{telefoneProfessor}" required>
+                </div>
 
-                    <div>
-                        <label for="rmProfessor">RM</label>
-                        <input id="rmProfessor" type="text" th:field="*{rmProfessor}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="graduacaoProfessor">Graduacao</label>
+                    <input id="graduacaoProfessor" type="text" th:field="*{graduacaoProfessor}" required>
+                </div>
 
-                    <button type="submit">Salvar</button>
-                </form>
+                <div class="form-group">
+                    <label for="rmProfessor">RM</label>
+                    <input id="rmProfessor" type="text" th:field="*{rmProfessor}" required>
+                </div>
 
-                <p>
-                    <a th:href="@{/professores}">Voltar para a lista</a>
-                </p>
-            </td>
-        </tr>
-    </table>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a th:href="@{/professores}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

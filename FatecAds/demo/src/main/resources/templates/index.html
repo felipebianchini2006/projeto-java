@@ -4,24 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fatec ADS</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Fatec ADS</h1>
-    <p>Pagina inicial do sistema.</p>
-    <a href="/alunos/listar">Gerenciar alunos</a>
-    <br>
-    <a href="/alunos/novo">Cadastrar aluno</a>
-    <br>
-    <a href="/cursos/listar">Gerenciar cursos</a>
-    <br>
-    <a href="/cursos/novo">Cadastrar curso</a>
-    <br>
-    <a href="/professores/listar">Gerenciar professores</a>
-    <br>
-    <a href="/professores/novo">Cadastrar professor</a>
-    <br>
-    <a href="/disciplinas/listar">Gerenciar disciplinas</a>
-    <br>
-    <a href="/disciplinas/novo">Cadastrar disciplina</a>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <p class="subtitle">Selecione uma das opcoes abaixo para gerenciar o sistema.</p>
+
+        <div class="cards">
+            <a href="/alunos/listar" class="card">
+                <div class="card-title">Alunos</div>
+                <div class="card-desc">Gerenciar alunos cadastrados</div>
+            </a>
+            <a href="/cursos/listar" class="card">
+                <div class="card-title">Cursos</div>
+                <div class="card-desc">Gerenciar cursos disponíveis</div>
+            </a>
+            <a href="/professores/listar" class="card">
+                <div class="card-title">Professores</div>
+                <div class="card-desc">Gerenciar corpo docente</div>
+            </a>
+            <a href="/disciplinas/listar" class="card">
+                <div class="card-title">Disciplinas</div>
+                <div class="card-desc">Gerenciar disciplinas ofertadas</div>
+            </a>
+        </div>
+    </div>
 </body>
 </html>

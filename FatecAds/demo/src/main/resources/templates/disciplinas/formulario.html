@@ -4,39 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Disciplina</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <table width="100%" height="100%">
-        <tr>
-            <td align="center" valign="middle">
-                <h1>Cadastro de Disciplina</h1>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/fatecads}">Inicio</a>
+                <a th:href="@{/disciplinas}">Disciplinas</a>
+            </nav>
+        </div>
+    </div>
 
-                <form th:action="@{/disciplinas/salvar}" th:object="${disciplina}" method="post">
-                    <input type="hidden" th:field="*{idDisciplina}">
+    <div class="container">
+        <h2 class="page-title">Cadastro de Disciplina</h2>
 
-                    <div>
-                        <label for="nomeDisciplina">Nome</label>
-                        <input id="nomeDisciplina" type="text" th:field="*{nomeDisciplina}" required>
-                    </div>
+        <div class="form-card">
+            <form th:action="@{/disciplinas/salvar}" th:object="${disciplina}" method="post">
+                <input type="hidden" th:field="*{idDisciplina}">
 
-                    <div>
-                        <label for="siglaDisciplina">Sigla</label>
-                        <input id="siglaDisciplina" type="text" th:field="*{siglaDisciplina}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="nomeDisciplina">Nome</label>
+                    <input id="nomeDisciplina" type="text" th:field="*{nomeDisciplina}" required>
+                </div>
 
-                    <div>
-                        <label for="cargaHorariaDisciplina">Carga Horária</label>
-                        <input id="cargaHorariaDisciplina" type="number" th:field="*{cargaHorariaDisciplina}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="siglaDisciplina">Sigla</label>
+                    <input id="siglaDisciplina" type="text" th:field="*{siglaDisciplina}" required>
+                </div>
 
-                    <button type="submit">Salvar</button>
-                </form>
+                <div class="form-group">
+                    <label for="cargaHorariaDisciplina">Carga Horaria</label>
+                    <input id="cargaHorariaDisciplina" type="number" th:field="*{cargaHorariaDisciplina}" required>
+                </div>
 
-                <p>
-                    <a th:href="@{/disciplinas}">Voltar para a lista</a>
-                </p>
-            </td>
-        </tr>
-    </table>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a th:href="@{/disciplinas}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

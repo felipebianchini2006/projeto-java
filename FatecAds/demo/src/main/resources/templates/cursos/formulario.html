@@ -4,39 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Curso</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <table width="100%" height="100%">
-        <tr>
-            <td align="center" valign="middle">
-                <h1>Cadastro de Curso</h1>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/fatecads}">Inicio</a>
+                <a th:href="@{/cursos}">Cursos</a>
+            </nav>
+        </div>
+    </div>
 
-                <form th:action="@{/cursos/salvar}" th:object="${curso}" method="post">
-                    <input type="hidden" th:field="*{idCurso}">
+    <div class="container">
+        <h2 class="page-title">Cadastro de Curso</h2>
 
-                    <div>
-                        <label for="nomeCurso">Nome</label>
-                        <input id="nomeCurso" type="text" th:field="*{nomeCurso}" required>
-                    </div>
+        <div class="form-card">
+            <form th:action="@{/cursos/salvar}" th:object="${curso}" method="post">
+                <input type="hidden" th:field="*{idCurso}">
 
-                    <div>
-                        <label for="periodo">Período</label>
-                        <input id="periodo" type="number" th:field="*{periodo}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="nomeCurso">Nome</label>
+                    <input id="nomeCurso" type="text" th:field="*{nomeCurso}" required>
+                </div>
 
-                    <div>
-                        <label for="cargaHoraria">Carga Horária</label>
-                        <input id="cargaHoraria" type="number" th:field="*{cargaHoraria}" required>
-                    </div>
+                <div class="form-group">
+                    <label for="periodo">Periodo</label>
+                    <input id="periodo" type="number" th:field="*{periodo}" required>
+                </div>
 
-                    <button type="submit">Salvar</button>
-                </form>
+                <div class="form-group">
+                    <label for="cargaHoraria">Carga Horaria</label>
+                    <input id="cargaHoraria" type="number" th:field="*{cargaHoraria}" required>
+                </div>
 
-                <p>
-                    <a th:href="@{/cursos}">Voltar para a lista</a>
-                </p>
-            </td>
-        </tr>
-    </table>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a th:href="@{/cursos}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

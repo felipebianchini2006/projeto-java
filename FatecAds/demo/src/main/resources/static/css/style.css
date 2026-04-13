@@ -1,0 +1,262 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f7f0;
+    color: #2d3a2d;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #2e7d4f, #4caf6a);
+    color: white;
+    padding: 28px 0;
+    box-shadow: 0 2px 12px rgba(46, 125, 79, 0.2);
+}
+
+.header .container {
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.header nav a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    margin-left: 24px;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.header nav a:hover {
+    color: white;
+}
+
+/* Page title */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #2e7d4f;
+    margin-bottom: 24px;
+}
+
+/* Cards grid - index page */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #d4e8d4;
+    border-radius: 10px;
+    padding: 24px;
+    text-decoration: none;
+    color: #2d3a2d;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(46, 125, 79, 0.12);
+    transform: translateY(-2px);
+}
+
+.card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.card-desc {
+    font-size: 0.82rem;
+    color: #6b7e6b;
+}
+
+/* Actions bar */
+.actions-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+    background-color: #2e7d4f;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #256b42;
+    box-shadow: 0 2px 8px rgba(46, 125, 79, 0.25);
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #2e7d4f;
+    border: 1px solid #b8d4b8;
+}
+
+.btn-secondary:hover {
+    background-color: #e8f5e8;
+}
+
+.btn-danger {
+    background-color: transparent;
+    color: #c0392b;
+    border: 1px solid #e8c6c6;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+}
+
+.btn-danger:hover {
+    background-color: #fdf0f0;
+}
+
+.btn-edit {
+    background-color: transparent;
+    color: #2e7d4f;
+    border: 1px solid #b8d4b8;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+}
+
+.btn-edit:hover {
+    background-color: #e8f5e8;
+}
+
+/* Table */
+.table-wrapper {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #d4e8d4;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #e8f5e8;
+}
+
+th {
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #3a6b3a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    border-top: 1px solid #edf5ed;
+}
+
+tbody tr:hover {
+    background-color: #f7fbf7;
+}
+
+.td-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.td-actions form {
+    display: inline;
+}
+
+/* Form */
+.form-card {
+    background: white;
+    border: 1px solid #d4e8d4;
+    border-radius: 10px;
+    padding: 32px;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #3a6b3a;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #c8dcc8;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #2d3a2d;
+    background-color: #fafcfa;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4caf6a;
+    box-shadow: 0 0 0 3px rgba(76, 175, 106, 0.15);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+/* Subtitle */
+.subtitle {
+    color: #6b7e6b;
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+}
