@@ -19,10 +19,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/h2-console/**", "/usuarios/novo", "/usuarios/salvar").permitAll()
+                        .requestMatchers("/css/**", "/h2-console/**", "/usuarios", "/usuarios/novo", "/usuarios/salvar").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
+                        .loginPage("/login")
                         .defaultSuccessUrl("/fatecads", true)
                         .permitAll()
                 )

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/usuarios/novo}">Criar conta</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="page-title">Login</h2>
+
+        <div class="form-card">
+            <form th:action="@{/login}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                <div class="form-group">
+                    <label for="username">Login</label>
+                    <input id="username" type="text" name="username" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input id="password" type="password" name="password" required>
+                </div>
+
+                <p class="subtitle" th:if="${param.error}">Login ou senha invalidos.</p>
+                <p class="subtitle" th:if="${param.logout}">Logout realizado com sucesso.</p>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <a th:href="@{/usuarios/novo}" class="btn btn-secondary">Criar conta</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
