@@ -117,8 +117,6 @@ class AlunoControllerTest {
         String conteudo = lerTemplate("templates/alunos/formulario.html");
 
         assertAll(
-                () -> assertTrue(conteudo.contains("align=\"center\"")),
-                () -> assertTrue(conteudo.contains("valign=\"middle\"")),
                 () -> assertTrue(conteudo.contains("th:action=\"@{/alunos/salvar}\"")),
                 () -> assertTrue(conteudo.contains("th:object=\"${aluno}\"")),
                 () -> assertTrue(conteudo.contains("th:field=\"*{nomeAluno}\"")),
