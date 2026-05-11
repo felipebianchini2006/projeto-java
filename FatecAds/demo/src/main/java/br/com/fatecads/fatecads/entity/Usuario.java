@@ -34,6 +34,6 @@ public class Usuario {
     private String senha;
 
     @Column(nullable = false, length = 30)
-    private String role;
+    private String role = "ROLE_USER";
 
 }
