@@ -31,6 +31,8 @@
                         <th>Nome</th>
                         <th>Sigla</th>
                         <th>Carga Horaria</th>
+                        <th>Professor</th>
+                        <th>Curso</th>
                         <th>Acoes</th>
                     </tr>
                 </thead>
@@ -40,6 +42,8 @@
                         <td th:text="${disciplina.nomeDisciplina}">Nome</td>
                         <td th:text="${disciplina.siglaDisciplina}">SIG</td>
                         <td th:text="${disciplina.cargaHorariaDisciplina}">80</td>
+                        <td th:text="${disciplina.professor.nomeProfessor}">Professor</td>
+                        <td th:text="${disciplina.curso.nomeCurso}">Curso</td>
                         <td>
                             <div class="td-actions">
                                 <a th:href="@{/disciplinas/editar/{id}(id=${disciplina.idDisciplina})}" class="btn btn-edit">Editar</a>

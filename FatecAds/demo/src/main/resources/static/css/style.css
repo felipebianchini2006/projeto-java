@@ -231,7 +231,8 @@ tbody tr:hover {
     margin-bottom: 6px;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 10px 14px;
     border: 1px solid #c8dcc8;
@@ -242,7 +243,8 @@ tbody tr:hover {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
     border-color: #4caf6a;
     box-shadow: 0 0 0 3px rgba(76, 175, 106, 0.15);
