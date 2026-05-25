@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Setter
 @Getter
@@ -35,5 +37,10 @@ public class Usuario {
 
     @Column(nullable = false, length = 30)
     private String role = "ROLE_USER";
+
+    @Column(length = 100)
+    private String tokenRecuperacaoSenha;
+
+    private LocalDateTime expiracaoTokenRecuperacaoSenha;
 
 }

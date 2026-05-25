@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar senha</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/login}">Login</a>
+                <a th:href="@{/usuarios/novo}">Criar conta</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="page-title">Recuperar senha</h2>
+
+        <div class="form-card">
+            <form th:action="@{/recuperar-senha}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                <div class="form-group">
+                    <label for="email">E-mail cadastrado</label>
+                    <input id="email" type="email" name="email" required autofocus>
+                </div>
+
+                <p class="subtitle" th:if="${mensagem}" th:text="${mensagem}"></p>
+                <p class="subtitle" th:if="${erro}" th:text="${erro}"></p>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Enviar link</button>
+                    <a th:href="@{/login}" class="btn btn-secondary">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

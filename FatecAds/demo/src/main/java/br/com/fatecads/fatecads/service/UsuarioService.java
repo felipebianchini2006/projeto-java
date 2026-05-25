@@ -7,8 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,6 +21,9 @@ public class UsuarioService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailService emailService;
 
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
@@ -32,6 +37,11 @@ public class UsuarioService {
         return usuarioRepository.findByLoginUsuario(login);
     }
 
+    public Optional<Usuario> buscarPorTokenRecuperacaoSenha(String token) {
+        return usuarioRepository.findByTokenRecuperacaoSenha(token)
+                .filter(this::tokenAindaValido);
+    }
+
     @Transactional
     public Usuario salvar(Usuario usuario) {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
@@ -39,7 +49,46 @@ public class UsuarioService {
     }
 
     @Transactional
+    public boolean solicitarRecuperacaoSenha(String email, String linkBase) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email.trim());
+
+        if (usuarioOptional.isEmpty()) {
+            return true;
+        }
+
+        Usuario usuario = usuarioOptional.get();
+        String token = UUID.randomUUID().toString();
+
+        if (!emailService.enviarRecuperacaoSenha(usuario, linkBase + "?token=" + token)) {
+            return false;
+        }
+
+        usuario.setTokenRecuperacaoSenha(token);
+        usuario.setExpiracaoTokenRecuperacaoSenha(LocalDateTime.now().plusMinutes(30));
+        usuarioRepository.save(usuario);
+        return true;
+    }
+
+    @Transactional
+    public boolean redefinirSenha(String token, String senha) {
+        return buscarPorTokenRecuperacaoSenha(token)
+                .map(usuario -> {
+                    usuario.setSenha(passwordEncoder.encode(senha));
+                    usuario.setTokenRecuperacaoSenha(null);
+                    usuario.setExpiracaoTokenRecuperacaoSenha(null);
+                    usuarioRepository.save(usuario);
+                    return true;
+                })
+                .orElse(false);
+    }
+
+    @Transactional
     public void excluirPorId(Integer id) {
         usuarioRepository.deleteById(id);
+    }
+
+    private boolean tokenAindaValido(Usuario usuario) {
+        LocalDateTime expiracao = usuario.getExpiracaoTokenRecuperacaoSenha();
+        return expiracao != null && expiracao.isAfter(LocalDateTime.now());
     }
 }

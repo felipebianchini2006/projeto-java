@@ -35,11 +35,16 @@
 
                 <p class="subtitle" th:if="${param.error}">Login ou senha invalidos.</p>
                 <p class="subtitle" th:if="${param.logout}">Logout realizado com sucesso.</p>
+                <p class="subtitle" th:if="${param.senhaRedefinida}">Senha redefinida com sucesso.</p>
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Entrar</button>
                     <a th:href="@{/usuarios/novo}" class="btn btn-secondary">Criar conta</a>
                 </div>
+
+                <p class="form-link">
+                    <a th:href="@{/recuperar-senha}">Esqueci minha senha</a>
+                </p>
             </form>
         </div>
     </div>
