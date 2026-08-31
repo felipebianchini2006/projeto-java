@@ -1,8 +1,8 @@
 package br.com.fatecads.fatecads.service;
 
 import br.com.fatecads.fatecads.entity.Curso;
+import br.com.fatecads.fatecads.exception.CursoNaoEncontradoException;
 import br.com.fatecads.fatecads.repository.CursoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +13,11 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class CursoService {
 
-    @Autowired
-    private CursoRepository cursoRepository;
+    private final CursoRepository cursoRepository;
+
+    public CursoService(CursoRepository cursoRepository) {
+        this.cursoRepository = cursoRepository;
+    }
 
     public List<Curso> listarTodos() {
         return cursoRepository.findAll();
@@ -22,6 +25,11 @@ public class CursoService {
 
     public Optional<Curso> buscarPorId(Integer idCurso) {
         return cursoRepository.findById(idCurso);
+    }
+
+    public Curso buscarObrigatorio(Integer idCurso) {
+        return buscarPorId(idCurso)
+                .orElseThrow(() -> new CursoNaoEncontradoException(idCurso));
     }
 
     @Transactional

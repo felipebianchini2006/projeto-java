@@ -1,8 +1,8 @@
 package br.com.fatecads.fatecads.service;
 
 import br.com.fatecads.fatecads.entity.Aluno;
+import br.com.fatecads.fatecads.exception.AlunoNaoEncontradoException;
 import br.com.fatecads.fatecads.repository.AlunoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +13,11 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class AlunoService {
 
-    @Autowired
-    private AlunoRepository alunoRepository;
+    private final AlunoRepository alunoRepository;
+
+    public AlunoService(AlunoRepository alunoRepository) {
+        this.alunoRepository = alunoRepository;
+    }
 
     public List<Aluno> listarTodos() {
         return alunoRepository.findAll();
@@ -22,6 +25,11 @@ public class AlunoService {
 
     public Optional<Aluno> buscarPorId(Integer idAluno) {
         return alunoRepository.findById(idAluno);
+    }
+
+    public Aluno buscarObrigatorio(Integer idAluno) {
+        return buscarPorId(idAluno)
+                .orElseThrow(() -> new AlunoNaoEncontradoException(idAluno));
     }
 
     @Transactional

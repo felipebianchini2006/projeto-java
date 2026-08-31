@@ -54,6 +54,19 @@
                     <input id="raAluno" type="text" th:field="*{raAluno}" required>
                 </div>
 
+                <div class="form-group">
+                    <label for="cursoId">Curso</label>
+                    <select id="cursoId" name="cursoId" required>
+                        <option value="">Selecione um curso</option>
+                        <option th:each="curso : ${listaCursos}"
+                                th:value="${curso.idCurso}"
+                                th:text="${curso.nomeCurso}"
+                                th:selected="${aluno.curso != null and aluno.curso.idCurso == curso.idCurso}">
+                            Curso
+                        </option>
+                    </select>
+                </div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Salvar</button>
                     <a th:href="@{/alunos}" class="btn btn-secondary">Cancelar</a>

@@ -243,6 +243,13 @@ tbody tr:hover {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.field-error {
+    display: block;
+    color: #a93226;
+    font-size: 0.8rem;
+    margin-top: 6px;
+}
+
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
@@ -275,4 +282,110 @@ tbody tr:hover {
     color: #6b7e6b;
     font-size: 0.95rem;
     margin-bottom: 28px;
+}
+
+.alert {
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+}
+
+.alert-error {
+    color: #8f2d22;
+    background-color: #fdf0f0;
+    border: 1px solid #e8c6c6;
+}
+
+.alert-success {
+    color: #205c3a;
+    background-color: #e8f5e8;
+    border: 1px solid #b8d4b8;
+}
+
+.empty-state {
+    color: #6b7e6b;
+    text-align: center;
+    padding: 28px 16px;
+}
+
+.pedido-layout {
+    display: grid;
+    gap: 20px;
+}
+
+.pedido-card {
+    max-width: none;
+    margin: 0;
+}
+
+.pedido-item-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px auto;
+    gap: 16px;
+    align-items: end;
+}
+
+.pedido-item-grid .form-group {
+    margin-bottom: 0;
+}
+
+.pedido-table {
+    overflow-x: auto;
+}
+
+.pedido-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: white;
+    border: 1px solid #d4e8d4;
+    border-radius: 10px;
+    padding: 20px 24px;
+}
+
+.pedido-summary > div {
+    display: grid;
+    gap: 4px;
+}
+
+.summary-label {
+    color: #6b7e6b;
+    font-size: 0.82rem;
+}
+
+#total-pedido {
+    color: #2e7d4f;
+    font-size: 1.4rem;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+@media (max-width: 720px) {
+    .container {
+        padding: 24px 16px;
+    }
+
+    .header .container,
+    .pedido-summary {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .header nav a {
+        margin-left: 12px;
+    }
+
+    .pedido-item-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pedido-summary .btn {
+        justify-content: center;
+        width: 100%;
+    }
 }

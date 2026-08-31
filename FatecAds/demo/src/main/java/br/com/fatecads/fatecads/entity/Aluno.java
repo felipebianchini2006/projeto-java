@@ -1,11 +1,12 @@
 package br.com.fatecads.fatecads.entity;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,5 +40,9 @@ public class Aluno {
 
     @Column(nullable = false)
     private String raAluno;
+
+    @ManyToOne
+    @JoinColumn(name = "id_curso")
+    private Curso curso;
 
 }

@@ -34,6 +34,7 @@
                         <th>Endereco</th>
                         <th>CPF</th>
                         <th>RA</th>
+                        <th>Curso</th>
                         <th>Acoes</th>
                     </tr>
                 </thead>
@@ -46,6 +47,7 @@
                         <td th:text="${aluno.enderecoAluno}">Rua A</td>
                         <td th:text="${aluno.cpfAluno}">00000000000</td>
                         <td th:text="${aluno.raAluno}">123456</td>
+                        <td th:text="${aluno.curso != null ? aluno.curso.nomeCurso : 'Nao informado'}">Curso</td>
                         <td>
                             <div class="td-actions">
                                 <a th:href="@{/alunos/editar/{id}(id=${aluno.idAluno})}" class="btn btn-edit">Editar</a>

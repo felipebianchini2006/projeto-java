@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <title>Novo Pedido</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/pedidos.js}" defer></script>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/fatecads}">Inicio</a>
+                <a th:href="@{/produtos}">Produtos</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="page-title">Novo pedido</h2>
+        <p class="subtitle">Selecione o aluno e adicione os produtos. O total final sera validado pelo servidor.</p>
+
+        <form id="pedido-form" class="pedido-layout">
+            <section class="form-card pedido-card">
+                <div class="form-group">
+                    <label for="alunoId">Aluno</label>
+                    <select id="alunoId" required>
+                        <option value="">Selecione um aluno</option>
+                        <option th:each="aluno : ${listaAlunos}"
+                                th:value="${aluno.idAluno}"
+                                th:text="${aluno.nomeAluno}">
+                            Aluno
+                        </option>
+                    </select>
+                </div>
+
+                <div class="pedido-item-grid">
+                    <div class="form-group">
+                        <label for="produtoId">Produto</label>
+                        <select id="produtoId">
+                            <option value="">Selecione um produto</option>
+                            <option th:each="produto : ${listaProdutos}"
+                                    th:value="${produto.idProduto}"
+                                    th:text="${produto.descricao + ' - ' + #numbers.formatCurrency(produto.valor)}"
+                                    th:attr="data-descricao=${produto.descricao},data-valor=${produto.valor}">
+                                Produto
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group quantidade-field">
+                        <label for="quantidade">Quantidade</label>
+                        <input id="quantidade" type="number" min="1" step="1" value="1">
+                    </div>
+
+                    <button id="adicionar-item" type="button" class="btn btn-secondary">Adicionar item</button>
+                </div>
+            </section>
+
+            <section class="table-wrapper pedido-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Preco</th>
+                            <th>Subtotal</th>
+                            <th>Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itens-pedido">
+                        <tr id="pedido-vazio">
+                            <td colspan="5" class="empty-state">Adicione pelo menos um produto.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <div class="pedido-summary">
+                <div>
+                    <span class="summary-label">Total previsto</span>
+                    <strong id="total-pedido">R$ 0,00</strong>
+                </div>
+                <button id="salvar-pedido" type="submit" class="btn btn-primary">Salvar pedido</button>
+            </div>
+
+            <div id="pedido-feedback" class="alert" role="status" aria-live="polite" hidden></div>
+        </form>
+    </div>
+</body>
+</html>

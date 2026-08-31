@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/fatecads}">Inicio</a>
+                <a th:href="@{/pedidos/novo}">Novo pedido</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="page-title">Produtos</h2>
+
+        <div class="actions-bar">
+            <a th:href="@{/produtos/novo}" class="btn btn-primary">Novo produto</a>
+        </div>
+
+        <div class="alert alert-error" th:if="${erro}" th:text="${erro}"></div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descricao</th>
+                        <th>Marca</th>
+                        <th>Unidade</th>
+                        <th>Valor</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="produto : ${listaProdutos}">
+                        <td th:text="${produto.idProduto}">1</td>
+                        <td th:text="${produto.descricao}">Produto</td>
+                        <td th:text="${produto.marca}">Marca</td>
+                        <td th:text="${produto.unidade}">UN</td>
+                        <td th:text="${#numbers.formatCurrency(produto.valor)}">R$ 0,00</td>
+                        <td>
+                            <div class="td-actions">
+                                <a th:href="@{/produtos/editar/{id}(id=${produto.idProduto})}"
+                                   class="btn btn-edit">Editar</a>
+                                <form th:action="@{/produtos/excluir/{id}(id=${produto.idProduto})}"
+                                      method="post"
+                                      onsubmit="return confirm('Deseja excluir este produto?');">
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(listaProdutos)}">
+                        <td colspan="6" class="empty-state">Nenhum produto cadastrado.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
