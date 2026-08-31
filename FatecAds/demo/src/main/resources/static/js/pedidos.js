@@ -68,9 +68,22 @@
 
             const row = document.createElement("tr");
             adicionarCelula(row, item.descricao);
-            adicionarCelula(row, String(item.quantidade));
+            const quantidadeCell = document.createElement("td");
+            const quantidade = document.createElement("input");
+            quantidade.type = "number";
+            quantidade.min = "1";
+            quantidade.step = "1";
+            quantidade.value = String(item.quantidade);
+            quantidade.className = "quantidade-pedido";
+            quantidade.setAttribute("aria-label", `Quantidade de ${item.descricao}`);
+            quantidadeCell.appendChild(quantidade);
+            row.appendChild(quantidadeCell);
             adicionarCelula(row, moeda.format(item.valor));
-            adicionarCelula(row, moeda.format(subtotal));
+            const subtotalCell = adicionarCelula(row, moeda.format(subtotal));
+
+            quantidade.addEventListener("input", () => {
+                atualizarQuantidade(item, quantidade, subtotalCell);
+            });
 
             const actionCell = document.createElement("td");
             const button = document.createElement("button");
@@ -90,14 +103,37 @@
         const cell = document.createElement("td");
         cell.textContent = value;
         row.appendChild(cell);
+        return cell;
+    }
+
+    function atualizarQuantidade(item, input, subtotalCell) {
+        const quantidade = Number(input.value);
+        const quantidadeValida = Number.isInteger(quantidade) && quantidade > 0;
+
+        item.quantidade = quantidadeValida ? quantidade : 0;
+        input.setAttribute("aria-invalid", String(!quantidadeValida));
+        subtotalCell.textContent = moeda.format(item.valor * item.quantidade);
+        atualizarTotal();
+    }
+
+    function atualizarTotal() {
+        const total = Array.from(itens.values()).reduce(
+            (soma, item) => soma + item.valor * item.quantidade,
+            0
+        );
+        totalElement.textContent = moeda.format(total);
     }
 
     async function salvarPedido(event) {
         event.preventDefault();
         const alunoId = Number(alunoSelect.value);
 
-        if (!alunoId || itens.size === 0) {
-            mostrarFeedback("Selecione um aluno e adicione pelo menos um produto.", true);
+        const quantidadeInvalida = Array.from(itens.values()).some(
+            (item) => !Number.isInteger(item.quantidade) || item.quantidade <= 0
+        );
+
+        if (!alunoId || itens.size === 0 || quantidadeInvalida) {
+            mostrarFeedback("Selecione um aluno, adicione produtos e informe quantidades validas.", true);
             return;
         }
 

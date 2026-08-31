@@ -32,6 +32,9 @@ class PedidoFrontendTest {
                 () -> assertTrue(script.contains("[csrfHeader]: csrfToken")),
                 () -> assertTrue(script.contains("produtoId: item.produtoId")),
                 () -> assertTrue(script.contains("quantidade: item.quantidade")),
+                () -> assertTrue(script.contains("quantidade.addEventListener(\"input\"")),
+                () -> assertTrue(script.contains("subtotalCell.textContent")),
+                () -> assertTrue(script.contains("atualizarTotal()")),
                 () -> assertTrue(script.contains("fetch(\"/pedidos\"")),
                 () -> assertTrue(script.contains("method: \"POST\""))
         );

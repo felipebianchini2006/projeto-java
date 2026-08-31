@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,4 +33,14 @@ public class Produto {
 
     @Column(nullable = false, length = 60)
     private String marca;
+
+    @Lob
+    private byte[] imagem;
+
+    @Column(length = 30)
+    private String imagemTipo;
+
+    public boolean temImagem() {
+        return imagem != null && imagem.length > 0;
+    }
 }

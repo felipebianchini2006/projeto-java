@@ -250,6 +250,42 @@ tbody tr:hover {
     margin-top: 6px;
 }
 
+.field-help {
+    display: block;
+    color: #6b7e6b;
+    font-size: 0.78rem;
+    margin-top: 6px;
+}
+
+.produto-imagem-atual {
+    display: grid;
+    gap: 8px;
+    color: #3a6b3a;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.produto-imagem-atual img {
+    width: 140px;
+    height: 140px;
+    border: 1px solid #d4e8d4;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.produto-thumbnail {
+    display: block;
+    width: 52px;
+    height: 52px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.sem-imagem {
+    color: #6b7e6b;
+    font-size: 0.78rem;
+}
+
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
@@ -332,6 +368,25 @@ tbody tr:hover {
 
 .pedido-table {
     overflow-x: auto;
+}
+
+.quantidade-pedido {
+    width: 84px;
+    padding: 8px 10px;
+    border: 1px solid #c8dcc8;
+    border-radius: 7px;
+    color: #2d3a2d;
+    background-color: #fafcfa;
+}
+
+.quantidade-pedido:focus {
+    outline: none;
+    border-color: #4caf6a;
+    box-shadow: 0 0 0 3px rgba(76, 175, 106, 0.15);
+}
+
+.quantidade-pedido[aria-invalid="true"] {
+    border-color: #c0392b;
 }
 
 .pedido-summary {

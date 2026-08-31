@@ -31,6 +31,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Imagem</th>
                         <th>Descricao</th>
                         <th>Marca</th>
                         <th>Unidade</th>
@@ -41,6 +42,13 @@
                 <tbody>
                     <tr th:each="produto : ${listaProdutos}">
                         <td th:text="${produto.idProduto}">1</td>
+                        <td>
+                            <img class="produto-thumbnail"
+                                 th:if="${produto.temImagem()}"
+                                 th:src="@{/produtos/{id}/imagem(id=${produto.idProduto})}"
+                                 th:alt="${produto.descricao}">
+                            <span th:unless="${produto.temImagem()}" class="sem-imagem">Sem imagem</span>
+                        </td>
                         <td th:text="${produto.descricao}">Produto</td>
                         <td th:text="${produto.marca}">Marca</td>
                         <td th:text="${produto.unidade}">UN</td>
@@ -58,7 +66,7 @@
                         </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(listaProdutos)}">
-                        <td colspan="6" class="empty-state">Nenhum produto cadastrado.</td>
+                        <td colspan="7" class="empty-state">Nenhum produto cadastrado.</td>
                     </tr>
                 </tbody>
             </table>

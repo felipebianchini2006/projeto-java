@@ -23,7 +23,10 @@
         </h2>
 
         <div class="form-card">
-            <form th:action="@{/produtos/salvar}" th:object="${produto}" method="post">
+            <form th:action="@{/produtos/salvar}"
+                  th:object="${produto}"
+                  method="post"
+                  enctype="multipart/form-data">
                 <input type="hidden" th:field="*{idProduto}">
 
                 <div class="form-group">
@@ -48,6 +51,22 @@
                     <label for="marca">Marca</label>
                     <input id="marca" type="text" th:field="*{marca}" maxlength="60" required>
                     <span class="field-error" th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="imagemArquivo">Imagem</label>
+                    <input id="imagemArquivo"
+                           name="imagemArquivo"
+                           type="file"
+                           accept="image/jpeg,image/png,image/webp">
+                    <span class="field-help">JPEG, PNG ou WebP. Maximo de 3 MB.</span>
+                    <span class="field-error" th:if="${erroImagem}" th:text="${erroImagem}"></span>
+                </div>
+
+                <div class="produto-imagem-atual" th:if="${produtoTemImagem}">
+                    <span>Imagem atual</span>
+                    <img th:src="@{/produtos/{id}/imagem(id=${produto.idProduto})}"
+                         th:alt="${produto.descricao}">
                 </div>
 
                 <div class="form-actions">
