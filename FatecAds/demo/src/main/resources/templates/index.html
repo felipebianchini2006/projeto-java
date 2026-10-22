@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,9 @@
     <div class="header">
         <div class="container">
             <h1>Fatec ADS</h1>
+            <nav>
+                <th:block th:replace="~{fragments/menu-usuario :: menu}"></th:block>
+            </nav>
         </div>
     </div>
 
@@ -17,29 +21,35 @@
         <p class="subtitle">Selecione uma das opcoes abaixo para gerenciar o sistema.</p>
 
         <div class="cards">
-            <a href="/alunos/listar" class="card">
-                <div class="card-title">Alunos</div>
-                <div class="card-desc">Gerenciar alunos cadastrados</div>
-            </a>
-            <a href="/cursos/listar" class="card">
-                <div class="card-title">Cursos</div>
-                <div class="card-desc">Gerenciar cursos disponíveis</div>
-            </a>
-            <a href="/professores/listar" class="card">
-                <div class="card-title">Professores</div>
-                <div class="card-desc">Gerenciar corpo docente</div>
-            </a>
-            <a href="/disciplinas/listar" class="card">
-                <div class="card-title">Disciplinas</div>
-                <div class="card-desc">Gerenciar disciplinas ofertadas</div>
-            </a>
+            <th:block sec:authorize="hasRole('ADMIN')">
+                <a href="/alunos/listar" class="card">
+                    <div class="card-title">Alunos</div>
+                    <div class="card-desc">Gerenciar alunos cadastrados</div>
+                </a>
+                <a href="/cursos/listar" class="card">
+                    <div class="card-title">Cursos</div>
+                    <div class="card-desc">Gerenciar cursos disponíveis</div>
+                </a>
+                <a href="/professores/listar" class="card">
+                    <div class="card-title">Professores</div>
+                    <div class="card-desc">Gerenciar corpo docente</div>
+                </a>
+                <a href="/disciplinas/listar" class="card">
+                    <div class="card-title">Disciplinas</div>
+                    <div class="card-desc">Gerenciar disciplinas ofertadas</div>
+                </a>
+            </th:block>
             <a href="/produtos" class="card">
                 <div class="card-title">Produtos</div>
-                <div class="card-desc">Gerenciar produtos disponíveis</div>
+                <div class="card-desc">Ver produtos e adicionar ao carrinho</div>
             </a>
-            <a href="/pedidos/novo" class="card">
-                <div class="card-title">Novo pedido</div>
-                <div class="card-desc">Registrar produtos para um aluno</div>
+            <a href="/carrinho" class="card">
+                <div class="card-title">Carrinho</div>
+                <div class="card-desc">Revisar itens e finalizar a compra</div>
+            </a>
+            <a href="/pedidos" class="card">
+                <div class="card-title">Minhas compras</div>
+                <div class="card-desc">Historico de compras finalizadas</div>
             </a>
         </div>
     </div>

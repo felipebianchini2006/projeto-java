@@ -22,8 +22,6 @@
 
         <div class="form-card">
             <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="post">
-                <input type="hidden" th:field="*{id}">
-
                 <div class="form-group">
                     <label for="nome">Nome</label>
                     <input id="nome" type="text" th:field="*{nome}" required>

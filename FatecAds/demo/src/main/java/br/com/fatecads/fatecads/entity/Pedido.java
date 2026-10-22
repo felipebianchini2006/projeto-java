@@ -33,13 +33,18 @@ public class Pedido {
     private BigDecimal total;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_aluno", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_aluno")
     private Aluno aluno;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
 
-    public Pedido(Aluno aluno, LocalDate dataPedido) {
+    public Pedido(Usuario usuario, Aluno aluno, LocalDate dataPedido) {
+        this.usuario = usuario;
         this.aluno = aluno;
         this.dataPedido = dataPedido;
         this.total = BigDecimal.ZERO.setScale(2);

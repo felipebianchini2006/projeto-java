@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu carrinho</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/fatecads}">Inicio</a>
+                <a th:href="@{/produtos}">Produtos</a>
+                <th:block th:replace="~{fragments/menu-usuario :: menu}"></th:block>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="page-title">Meu carrinho</h2>
+
+        <div class="alert alert-error" th:if="${erro}" th:text="${erro}"></div>
+
+        <div class="table-wrapper" th:if="${#lists.isEmpty(itens)}">
+            <p class="empty-state">
+                Seu carrinho esta vazio.
+                <a th:href="@{/produtos}">Ver produtos</a>
+            </p>
+        </div>
+
+        <div class="pedido-layout" th:unless="${#lists.isEmpty(itens)}">
+            <div class="table-wrapper pedido-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Produto</th>
+                            <th>Preco</th>
+                            <th>Quantidade</th>
+                            <th>Subtotal</th>
+                            <th>Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${itens}">
+                            <td>
+                                <img class="produto-thumbnail"
+                                     th:if="${item.produto.temImagem()}"
+                                     th:src="@{/produtos/{id}/imagem(id=${item.produto.idProduto})}"
+                                     th:alt="${item.produto.descricao}">
+                                <span th:unless="${item.produto.temImagem()}" class="sem-imagem">Sem imagem</span>
+                            </td>
+                            <td th:text="${item.produto.descricao}">Produto</td>
+                            <td th:text="${#numbers.formatCurrency(item.produto.valor)}">R$ 0,00</td>
+                            <td>
+                                <form class="form-carrinho" th:action="@{/carrinho/atualizar}" method="post">
+                                    <input type="hidden" name="produtoId" th:value="${item.produto.idProduto}">
+                                    <input type="number" name="quantidade" min="1" step="1" required
+                                           class="quantidade-pedido"
+                                           th:value="${item.quantidade}"
+                                           th:attr="aria-label=|Quantidade de ${item.produto.descricao}|">
+                                    <button type="submit" class="btn btn-edit">Atualizar</button>
+                                </form>
+                            </td>
+                            <td th:text="${#numbers.formatCurrency(item.subtotal)}">R$ 0,00</td>
+                            <td>
+                                <form th:action="@{/carrinho/remover}" method="post">
+                                    <input type="hidden" name="produtoId" th:value="${item.produto.idProduto}">
+                                    <button type="submit" class="btn btn-danger">Remover</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <form class="pedido-summary" th:action="@{/carrinho/finalizar}" method="post">
+                <div>
+                    <span class="summary-label">Total</span>
+                    <strong class="total-pedido" th:text="${#numbers.formatCurrency(total)}">R$ 0,00</strong>
+                </div>
+
+                <!-- Somente ADMIN recebe listaAlunos (ver CarrinhoController) -->
+                <div class="form-group" th:if="${listaAlunos != null}">
+                    <label for="alunoId">Aluno (opcional)</label>
+                    <select id="alunoId" name="alunoId">
+                        <option value="">Sem aluno</option>
+                        <option th:each="aluno : ${listaAlunos}"
+                                th:value="${aluno.idAluno}"
+                                th:text="${aluno.nomeAluno}">
+                            Aluno
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Finalizar compra</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

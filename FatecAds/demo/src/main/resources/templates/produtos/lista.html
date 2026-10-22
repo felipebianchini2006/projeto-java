@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,7 @@
             <h1>Fatec ADS</h1>
             <nav>
                 <a th:href="@{/fatecads}">Inicio</a>
-                <a th:href="@{/pedidos/novo}">Novo pedido</a>
+                <th:block th:replace="~{fragments/menu-usuario :: menu}"></th:block>
             </nav>
         </div>
     </div>
@@ -20,10 +21,14 @@
     <div class="container">
         <h2 class="page-title">Produtos</h2>
 
-        <div class="actions-bar">
+        <div class="actions-bar" sec:authorize="hasRole('ADMIN')">
             <a th:href="@{/produtos/novo}" class="btn btn-primary">Novo produto</a>
         </div>
 
+        <div class="alert alert-success" th:if="${mensagem}">
+            <span th:text="${mensagem}">Produto adicionado ao carrinho.</span>
+            <a th:href="@{/carrinho}">Ver carrinho</a>
+        </div>
         <div class="alert alert-error" th:if="${erro}" th:text="${erro}"></div>
 
         <div class="table-wrapper">
@@ -36,7 +41,8 @@
                         <th>Marca</th>
                         <th>Unidade</th>
                         <th>Valor</th>
-                        <th>Acoes</th>
+                        <th>Carrinho</th>
+                        <th sec:authorize="hasRole('ADMIN')">Acoes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,6 +60,15 @@
                         <td th:text="${produto.unidade}">UN</td>
                         <td th:text="${#numbers.formatCurrency(produto.valor)}">R$ 0,00</td>
                         <td>
+                            <form class="form-carrinho" th:action="@{/carrinho/adicionar}" method="post">
+                                <input type="hidden" name="produtoId" th:value="${produto.idProduto}">
+                                <input type="number" name="quantidade" value="1" min="1" step="1" required
+                                       class="quantidade-pedido"
+                                       th:attr="aria-label=|Quantidade de ${produto.descricao}|">
+                                <button type="submit" class="btn btn-primary btn-sm">Adicionar</button>
+                            </form>
+                        </td>
+                        <td sec:authorize="hasRole('ADMIN')">
                             <div class="td-actions">
                                 <a th:href="@{/produtos/editar/{id}(id=${produto.idProduto})}"
                                    class="btn btn-edit">Editar</a>
@@ -66,7 +81,7 @@
                         </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(listaProdutos)}">
-                        <td colspan="7" class="empty-state">Nenhum produto cadastrado.</td>
+                        <td colspan="8" class="empty-state">Nenhum produto cadastrado.</td>
                     </tr>
                 </tbody>
             </table>

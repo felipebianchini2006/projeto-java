@@ -1,5 +1,6 @@
 package br.com.fatecads.fatecads.service;
 
+import br.com.fatecads.fatecads.entity.Role;
 import br.com.fatecads.fatecads.entity.Usuario;
 import br.com.fatecads.fatecads.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,31 @@ public class UsuarioService {
                 .filter(this::tokenAindaValido);
     }
 
+    /**
+     * Cadastro publico: sempre cria uma nova conta com ROLE_USER,
+     * ignorando id/role enviados no formulario.
+     */
     @Transactional
-    public Usuario salvar(Usuario usuario) {
+    public Usuario cadastrar(Usuario usuario) {
+        usuario.setId(null);
+        usuario.setRole(Role.ROLE_USER);
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
+    }
+
+    @Transactional
+    public void garantirAdmin(String login, String email, String senha) {
+        if (usuarioRepository.findByLoginUsuario(login).isPresent()) {
+            return;
+        }
+
+        Usuario admin = new Usuario();
+        admin.setNome("Administrador");
+        admin.setEmail(email);
+        admin.setLogin(login);
+        admin.setSenha(passwordEncoder.encode(senha));
+        admin.setRole(Role.ROLE_ADMIN);
+        usuarioRepository.save(admin);
     }
 
     @Transactional

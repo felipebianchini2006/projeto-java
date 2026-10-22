@@ -2,6 +2,7 @@ package br.com.fatecads.fatecads.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,14 +17,27 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 "/css/**",
-                                "/h2-console/**",
+                                "/error",
                                 "/usuarios",
                                 "/usuarios/novo",
                                 "/usuarios/salvar",
                                 "/recuperar-senha",
                                 "/redefinir-senha"
                         ).permitAll()
-                        .anyRequest().authenticated()
+                        // USER: navegar pelos produtos, usar o carrinho e ver o historico de compras
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/",
+                                "/fatecads",
+                                "/produtos",
+                                "/produtos/listar",
+                                "/produtos/*/imagem",
+                                "/carrinho",
+                                "/pedidos"
+                        ).hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.POST, "/carrinho/*").hasAnyRole("ADMIN", "USER")
+                        // ADMIN: todo o resto (cadastros, edicao, exclusao, h2-console)
+                        .anyRequest().hasRole("ADMIN")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

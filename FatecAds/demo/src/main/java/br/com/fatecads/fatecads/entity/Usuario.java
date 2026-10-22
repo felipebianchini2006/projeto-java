@@ -2,6 +2,8 @@ package br.com.fatecads.fatecads.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,8 +37,9 @@ public class Usuario {
     @Column(nullable = false, length = 100)
     private String senha;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
-    private String role = "ROLE_USER";
+    private Role role = Role.ROLE_USER;
 
     @Column(length = 100)
     private String tokenRecuperacaoSenha;

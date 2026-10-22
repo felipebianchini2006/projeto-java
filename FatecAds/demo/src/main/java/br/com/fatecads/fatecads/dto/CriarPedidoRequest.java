@@ -1,16 +1,13 @@
 package br.com.fatecads.fatecads.dto;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-
 import java.util.List;
 
+/**
+ * Comando interno para criar um pedido a partir do carrinho.
+ * {@code alunoId} e opcional; somente ROLE_ADMIN pode vincular um aluno (validado no PedidoService).
+ */
 public record CriarPedidoRequest(
-        @NotNull(message = "Informe o aluno")
         Integer alunoId,
-
-        @NotEmpty(message = "Adicione pelo menos um item ao pedido")
-        List<@Valid ItemPedidoRequest> itens
+        List<ItemPedidoRequest> itens
 ) {
 }

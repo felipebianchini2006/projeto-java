@@ -45,7 +45,7 @@ class UsuarioServiceTest {
 
     @Test
     void solicitarRecuperacaoSenhaDeveGerarTokenEEnviarEmail() {
-        usuarioService.salvar(criarUsuario());
+        usuarioService.cadastrar(criarUsuario());
 
         boolean enviado = usuarioService.solicitarRecuperacaoSenha(
                 "MARIA@EMAIL.COM",
@@ -67,7 +67,7 @@ class UsuarioServiceTest {
 
     @Test
     void redefinirSenhaDeveAtualizarSenhaELimparToken() {
-        usuarioService.salvar(criarUsuario());
+        usuarioService.cadastrar(criarUsuario());
         usuarioService.solicitarRecuperacaoSenha("maria@email.com", "http://localhost:8080/redefinir-senha");
         String token = usuarioRepository.findByEmail("maria@email.com").orElseThrow().getTokenRecuperacaoSenha();
 

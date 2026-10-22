@@ -5,6 +5,7 @@ import br.com.fatecads.fatecads.entity.Aluno;
 import br.com.fatecads.fatecads.entity.ItemPedido;
 import br.com.fatecads.fatecads.entity.Pedido;
 import br.com.fatecads.fatecads.entity.Produto;
+import br.com.fatecads.fatecads.entity.Usuario;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
@@ -30,11 +31,15 @@ class PedidoRepositoryTest {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @Test
     void devePersistirPedidoEItensEmCascata() {
+        Usuario usuario = usuarioRepository.save(criarUsuario());
         Aluno aluno = alunoRepository.save(criarAluno());
         Produto produto = produtoRepository.save(criarProduto());
-        Pedido pedido = new Pedido(aluno, LocalDate.of(2026, 8, 31));
+        Pedido pedido = new Pedido(usuario, aluno, LocalDate.of(2026, 8, 31));
         ItemPedido item = new ItemPedido(pedido, produto, 2, produto.getValor());
         pedido.adicionarItem(item);
         pedido.definirTotal(item.getSubtotal());
@@ -49,6 +54,15 @@ class PedidoRepositoryTest {
                 () -> assertNotNull(encontrado.getItens().get(0).getIdItemPedido()),
                 () -> assertEquals(new BigDecimal("12.50"), encontrado.getItens().get(0).getPrecoUnitario())
         );
+    }
+
+    private Usuario criarUsuario() {
+        Usuario usuario = new Usuario();
+        usuario.setNome("Joao");
+        usuario.setEmail("joao@email.com");
+        usuario.setLogin("joao");
+        usuario.setSenha("hash");
+        return usuario;
     }
 
     private Aluno criarAluno() {

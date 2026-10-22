@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historico de compras</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Fatec ADS</h1>
+            <nav>
+                <a th:href="@{/fatecads}">Inicio</a>
+                <a th:href="@{/produtos}">Produtos</a>
+                <th:block th:replace="~{fragments/menu-usuario :: menu}"></th:block>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="page-title" th:text="${todos} ? 'Historico de pedidos' : 'Minhas compras'">Minhas compras</h2>
+        <p class="subtitle" th:if="${todos}">Como administrador, voce ve os pedidos de todos os usuarios.</p>
+
+        <div class="alert alert-success" th:if="${mensagem}" th:text="${mensagem}"></div>
+
+        <div class="table-wrapper pedido-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pedido</th>
+                        <th>Data</th>
+                        <th th:if="${todos}">Usuario</th>
+                        <th th:if="${todos}">Aluno</th>
+                        <th>Itens</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pedido : ${pedidos}">
+                        <td th:text="|#${pedido.idPedido}|">#1</td>
+                        <td th:text="${#temporals.format(pedido.dataPedido, 'dd/MM/yyyy')}">01/01/2026</td>
+                        <td th:if="${todos}" th:text="${pedido.usuario.login}">login</td>
+                        <td th:if="${todos}" th:text="${pedido.aluno != null ? pedido.aluno.nomeAluno : '-'}">-</td>
+                        <td>
+                            <ul class="itens-pedido">
+                                <li th:each="item : ${pedido.itens}"
+                                    th:text="|${item.quantidade}x ${item.produto.descricao} (${#numbers.formatCurrency(item.precoUnitario)})|">
+                                    1x Produto
+                                </li>
+                            </ul>
+                        </td>
+                        <td th:text="${#numbers.formatCurrency(pedido.total)}">R$ 0,00</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(pedidos)}">
+                        <td th:attr="colspan=${todos} ? 6 : 4" class="empty-state">
+                            Nenhuma compra ainda. <a th:href="@{/produtos}">Ver produtos</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

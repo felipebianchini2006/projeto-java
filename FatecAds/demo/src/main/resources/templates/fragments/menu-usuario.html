@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+    <!-- Menu do usuario logado: carrinho (com contador), historico de compras e logout. -->
+    <th:block th:fragment="menu" sec:authorize="isAuthenticated()">
+        <a th:href="@{/carrinho}" class="nav-carrinho">
+            Carrinho
+            <span class="badge-carrinho"
+                  th:text="${@carrinhoService.contarItens(#authentication.name)}">0</span>
+        </a>
+        <a th:href="@{/pedidos}">Minhas compras</a>
+        <!-- Logout precisa ser POST com CSRF (Spring Security); th:action injeta o token. -->
+        <form class="nav-sair" th:action="@{/logout}" method="post">
+            <button type="submit">Sair (<span sec:authentication="name">usuario</span>)</button>
+        </form>
+    </th:block>
+</body>
+</html>

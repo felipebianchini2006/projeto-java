@@ -50,6 +50,51 @@ body {
     color: white;
 }
 
+.header nav {
+    display: flex;
+    align-items: center;
+}
+
+.header nav .nav-sair {
+    margin-left: 24px;
+}
+
+.header nav .nav-sair button {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.9rem;
+    padding: 4px 12px;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.header nav .nav-sair button:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: white;
+    color: white;
+}
+
+.header nav .nav-carrinho {
+    align-items: center;
+    display: inline-flex;
+    gap: 6px;
+}
+
+.badge-carrinho {
+    background: white;
+    border-radius: 999px;
+    color: #2e7d4f;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 20px;
+    padding: 3px 7px;
+    text-align: center;
+}
+
 /* Page title */
 .page-title {
     font-size: 1.6rem;
@@ -350,24 +395,32 @@ tbody tr:hover {
     gap: 20px;
 }
 
-.pedido-card {
-    max-width: none;
-    margin: 0;
-}
-
-.pedido-item-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 140px auto;
-    gap: 16px;
-    align-items: end;
-}
-
-.pedido-item-grid .form-group {
-    margin-bottom: 0;
-}
-
 .pedido-table {
     overflow-x: auto;
+}
+
+.form-carrinho {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+
+.btn-sm {
+    font-size: 0.82rem;
+    padding: 7px 14px;
+}
+
+.itens-pedido {
+    list-style: none;
+    display: grid;
+    gap: 2px;
+}
+
+.empty-state a,
+.alert a {
+    color: #2e7d4f;
+    font-weight: 600;
+    margin-left: 6px;
 }
 
 .quantidade-pedido {
@@ -385,8 +438,13 @@ tbody tr:hover {
     box-shadow: 0 0 0 3px rgba(76, 175, 106, 0.15);
 }
 
-.quantidade-pedido[aria-invalid="true"] {
-    border-color: #c0392b;
+.pedido-summary .form-group {
+    margin-bottom: 0;
+    min-width: 220px;
+}
+
+.pedido-summary select {
+    width: 100%;
 }
 
 .pedido-summary {
@@ -410,7 +468,7 @@ tbody tr:hover {
     font-size: 0.82rem;
 }
 
-#total-pedido {
+.total-pedido {
     color: #2e7d4f;
     font-size: 1.4rem;
 }
@@ -431,12 +489,13 @@ tbody tr:hover {
         flex-direction: column;
     }
 
-    .header nav a {
+    .header nav a,
+    .header nav .nav-sair {
         margin-left: 12px;
     }
 
-    .pedido-item-grid {
-        grid-template-columns: 1fr;
+    .pedido-summary .form-group {
+        width: 100%;
     }
 
     .pedido-summary .btn {
