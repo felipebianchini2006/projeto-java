@@ -1,6 +1,7 @@
 package br.com.fatecads.fatecads.dto;
 
 import br.com.fatecads.fatecads.entity.Produto;
+import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -38,13 +39,23 @@ public class ProdutoForm {
     @Size(max = 60, message = "A marca deve ter no maximo 60 caracteres")
     private String marca;
 
+    @DecimalMin(value = "0", message = "O desconto deve ser maior ou igual a 0%")
+    @DecimalMax(value = "100", message = "O desconto deve ser menor ou igual a 100%")
+    @Digits(integer = 3, fraction = 2, message = "Informe um percentual com até duas casas decimais")
+    private BigDecimal descontoPercentual;
+
+    public ProdutoForm(Integer idProduto, String descricao, BigDecimal valor, String unidade, String marca) {
+        this(idProduto, descricao, valor, unidade, marca, null);
+    }
+
     public static ProdutoForm from(Produto produto) {
         return new ProdutoForm(
                 produto.getIdProduto(),
                 produto.getDescricao(),
                 produto.getValor(),
                 produto.getUnidade(),
-                produto.getMarca()
+                produto.getMarca(),
+                produto.getDescontoPercentual()
         );
     }
 }

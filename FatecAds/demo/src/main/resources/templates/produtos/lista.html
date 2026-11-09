@@ -58,7 +58,11 @@
                         <td th:text="${produto.descricao}">Produto</td>
                         <td th:text="${produto.marca}">Marca</td>
                         <td th:text="${produto.unidade}">UN</td>
-                        <td th:text="${#numbers.formatCurrency(produto.valor)}">R$ 0,00</td>
+                        <td>
+                            <del th:if="${produto.valorFinal.compareTo(produto.valor) < 0}"
+                                 th:text="${#numbers.formatCurrency(produto.valor)}"></del>
+                            <span th:text="${#numbers.formatCurrency(produto.valorFinal)}">R$ 0,00</span>
+                        </td>
                         <td>
                             <form class="form-carrinho" th:action="@{/carrinho/adicionar}" method="post">
                                 <input type="hidden" name="produtoId" th:value="${produto.idProduto}">

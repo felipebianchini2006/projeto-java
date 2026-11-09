@@ -52,9 +52,10 @@ class PedidoServiceTest {
     }
 
     @Test
-    void criarDeveCalcularPrecoSubtotalETotalNoServidor() {
+    void criarDeveGravarPrecoComDescontoESemRecalcularDepoisDaCompra() {
         Aluno aluno = criarAluno(1);
-        Produto produto = criarProduto(2, "9.99");
+        Produto produto = criarProduto(2, "19.99");
+        produto.setDescontoPercentual(new BigDecimal("50"));
         CriarPedidoRequest request = new CriarPedidoRequest(
                 aluno.getIdAluno(),
                 List.of(new ItemPedidoRequest(produto.getIdProduto(), 3))
@@ -68,17 +69,18 @@ class PedidoServiceTest {
         ArgumentCaptor<Pedido> captor = ArgumentCaptor.forClass(Pedido.class);
         verify(pedidoRepository).save(captor.capture());
         Pedido pedido = captor.getValue();
+        produto.setDescontoPercentual(BigDecimal.ZERO);
 
         assertAll(
                 () -> assertSame(admin, pedido.getUsuario()),
                 () -> assertSame(aluno, pedido.getAluno()),
-                () -> assertEquals(new BigDecimal("29.97"), pedido.getTotal()),
+                () -> assertEquals(new BigDecimal("30.00"), pedido.getTotal()),
                 () -> assertEquals(1, pedido.getItens().size()),
                 () -> assertSame(produto, pedido.getItens().get(0).getProduto()),
-                () -> assertEquals(new BigDecimal("9.99"), pedido.getItens().get(0).getPrecoUnitario()),
-                () -> assertEquals(new BigDecimal("29.97"), pedido.getItens().get(0).getSubtotal()),
+                () -> assertEquals(new BigDecimal("10.00"), pedido.getItens().get(0).getPrecoUnitario()),
+                () -> assertEquals(new BigDecimal("30.00"), pedido.getItens().get(0).getSubtotal()),
                 () -> assertSame(pedido, pedido.getItens().get(0).getPedido()),
-                () -> assertEquals(new BigDecimal("29.97"), response.getTotal())
+                () -> assertEquals(new BigDecimal("30.00"), response.getTotal())
         );
     }
 

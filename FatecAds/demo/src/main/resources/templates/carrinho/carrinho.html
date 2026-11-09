@@ -53,7 +53,7 @@
                                 <span th:unless="${item.produto.temImagem()}" class="sem-imagem">Sem imagem</span>
                             </td>
                             <td th:text="${item.produto.descricao}">Produto</td>
-                            <td th:text="${#numbers.formatCurrency(item.produto.valor)}">R$ 0,00</td>
+                            <td th:text="${#numbers.formatCurrency(item.produto.valorFinal)}">R$ 0,00</td>
                             <td>
                                 <form class="form-carrinho" th:action="@{/carrinho/atualizar}" method="post">
                                     <input type="hidden" name="produtoId" th:value="${item.produto.idProduto}">

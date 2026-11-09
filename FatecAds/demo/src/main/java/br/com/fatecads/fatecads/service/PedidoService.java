@@ -59,7 +59,7 @@ public class PedidoService {
                     pedido,
                     produto,
                     itemRequest.quantidade(),
-                    produto.getValor()
+                    produto.getValorFinal()
             );
             pedido.adicionarItem(item);
             total = total.add(item.getSubtotal());

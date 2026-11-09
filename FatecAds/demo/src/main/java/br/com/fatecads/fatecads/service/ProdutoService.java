@@ -52,6 +52,7 @@ public class ProdutoService {
 
         produto.setDescricao(form.getDescricao().trim());
         produto.setValor(form.getValor());
+        produto.setDescontoPercentual(form.getDescontoPercentual());
         produto.setUnidade(form.getUnidade().trim());
         produto.setMarca(form.getMarca().trim());
         salvarImagemSeInformada(produto, imagemArquivo);

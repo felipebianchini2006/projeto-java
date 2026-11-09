@@ -60,7 +60,7 @@ public class ItemCarrinho {
     }
 
     public BigDecimal getSubtotal() {
-        return produto.getValor()
+        return produto.getValorFinal()
                 .multiply(BigDecimal.valueOf(quantidade))
                 .setScale(2, RoundingMode.HALF_UP);
     }
